@@ -18,6 +18,8 @@ By default, these secrets are named `KUBE_CERT` and `KUBE_TOKEN`. The variables 
 |------|-------------|:----:|:-----:|:-----:|
 | namespace | The namespace in which to create the serviceaccount | string | | yes |
 | serviceaccount_name | The name of the serviceaccount | string | cd-serviceaccount | no |
+| role_name | The name of the created role | string | serviceaccount-role | no |
+| rolebinding_name | The name of the created rolebinding | string | serviceaccount-rolebinding | no |
 | github_repositories | GitHub repositories in which to create Github Actions Secrets | list(string) | [] | no |
 | github_actions_secret_kube_cert | The name of the Github Actions Secret containing the `ca.crt` | string | KUBE_CERT | no |
 | github_actions_secret_kube_token | The name of the Github Actions Secret containing the `token` | string | KUBE_TOKEN | no |

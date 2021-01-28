@@ -14,7 +14,7 @@ data "kubernetes_secret" "github_actions_secret" {
 
 resource "kubernetes_role" "github_actions_role" {
   metadata {
-    name      = "github-actions-role"
+    name      = var.role_name
     namespace = var.namespace
   }
 
@@ -30,7 +30,7 @@ resource "kubernetes_role" "github_actions_role" {
 
 resource "kubernetes_role_binding" "github-actions-rolebinding" {
   metadata {
-    name      = "github-actions-rolebinding"
+    name      = var.rolebinding_name
     namespace = var.namespace
   }
   role_ref {

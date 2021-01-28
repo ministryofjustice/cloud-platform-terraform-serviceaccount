@@ -59,6 +59,14 @@ variable "serviceaccount_rules" {
   ]
 }
 
+variable "role_name" {
+  default = "serviceaccount-role"
+}
+
+variable "rolebinding_name" {
+  default = "serviceaccount-rolebinding"
+}
+
 variable "github_repositories" {
   description = "GitHub repositories in which to create github actions secrets"
   type        = list(string)
