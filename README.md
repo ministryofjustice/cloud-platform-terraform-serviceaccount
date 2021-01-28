@@ -8,7 +8,7 @@ The default set of capabilities is usually sufficient for a CI/CD pipeline. Thes
 
 ## GitHub Actions Secrets
 
-If a list of GitHub repositories is supplied via the `github_repositories` variable, [GitHub Actions Secrets] will be created in those repositories, containing the serviceaccount `ca.crt` and `token` values.
+If a list of GitHub repositories is supplied via the `github_repositories` variable, [GitHub Actions Secrets] will be created in those repositories, containing the serviceaccount `ca.crt` and `token` values, for use in GitHub Actions CI/CD pipelines.
 
 By default, these secrets are named `KUBE_CERT` and `KUBE_TOKEN`. The variables `github_actions_secret_kube_cert` and `github_actions_secret_kube_token` can be supplied to change these names.
 
