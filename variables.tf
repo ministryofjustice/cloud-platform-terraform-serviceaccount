@@ -1,3 +1,8 @@
+variable "kubernetes_cluster" {
+  description = "The name of the kubernetes cluster, for app. deployment"
+  default = "live-1.cloud-platform.service.justice.gov.uk"
+}
+
 variable "namespace" {
   description = "The namespace in which this serviceaccount will be created"
 }
@@ -71,6 +76,16 @@ variable "github_repositories" {
   description = "GitHub repositories in which to create github actions secrets"
   type        = list(string)
   default     = []
+}
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE"
 }
 
 variable "github_actions_secret_kube_cert" {
