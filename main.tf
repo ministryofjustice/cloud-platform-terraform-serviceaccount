@@ -58,3 +58,17 @@ resource "github_actions_secret" "serviceaccount-token" {
   secret_name     = var.github_actions_secret_kube_token
   plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "token")
 }
+
+resource "github_actions_secret" "cluster-name" {
+  for_each        = toset(var.github_repositories)
+  repository      = each.key
+  secret_name     = var.github_actions_secret_kube_cluster
+  plaintext_value = var.kubernetes_cluster
+}
+
+resource "github_actions_secret" "cluster-namespace" {
+  for_each        = toset(var.github_repositories)
+  repository      = each.key
+  secret_name     = var.github_actions_secret_kube_namespace
+  plaintext_value = var.namespace
+}
