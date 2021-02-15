@@ -36,6 +36,7 @@ variable "serviceaccount_rules" {
         "patch",
         "get",
         "create",
+        "update",
         "delete",
         "list",
         "watch",
