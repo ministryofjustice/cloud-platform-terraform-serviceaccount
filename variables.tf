@@ -45,11 +45,14 @@ variable "serviceaccount_rules" {
       api_groups = [
         "extensions",
         "apps",
+        "batch",
         "networking.k8s.io",
       ]
       resources = [
         "deployments",
         "ingresses",
+        "cronjobs",
+        "jobs",
       ]
       verbs = [
         "get",
