@@ -17,6 +17,8 @@ If a list of GitHub repositories is supplied via the `github_repositories` varia
 | `KUBE_CLUSTER` | Cluster name | `github_actions_secret_kube_cluster` |
 | `KUBE_NAMESPACE` | Namespace name | `github_actions_secret_kube_namespace` |
 
+*Note* The terraform Github provider does not seem to trigger on changes in the parameters, but deleting the `serviceaccount` in the namespace will make it update the repo secrets too.
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
