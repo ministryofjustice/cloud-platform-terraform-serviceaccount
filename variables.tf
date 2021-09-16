@@ -1,6 +1,5 @@
 variable "kubernetes_cluster" {
   description = "The name of the kubernetes cluster, for app. deployment"
-  default = "live-1.cloud-platform.service.justice.gov.uk"
 }
 
 variable "namespace" {
