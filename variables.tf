@@ -30,7 +30,6 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "pods",
-        "replicasets",
       ]
       verbs = [
         "patch",
@@ -54,6 +53,7 @@ variable "serviceaccount_rules" {
         "ingresses",
         "cronjobs",
         "jobs",
+        "replicasets",
       ]
       verbs = [
         "get",
