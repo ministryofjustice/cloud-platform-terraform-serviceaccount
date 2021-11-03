@@ -30,6 +30,7 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "pods",
+        "replicasets",
       ]
       verbs = [
         "patch",
