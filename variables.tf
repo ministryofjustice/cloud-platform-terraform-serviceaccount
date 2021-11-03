@@ -64,6 +64,17 @@ variable "serviceaccount_rules" {
         "watch",
       ]
     },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
   ]
 }
 
