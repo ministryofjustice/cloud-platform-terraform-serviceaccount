@@ -53,6 +53,7 @@ variable "serviceaccount_rules" {
         "ingresses",
         "cronjobs",
         "jobs",
+        "replicasets",
       ]
       verbs = [
         "get",
