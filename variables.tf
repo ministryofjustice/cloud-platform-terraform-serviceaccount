@@ -47,6 +47,7 @@ variable "serviceaccount_rules" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "policy",
       ]
       resources = [
         "deployments",
@@ -54,6 +55,7 @@ variable "serviceaccount_rules" {
         "cronjobs",
         "jobs",
         "replicasets",
+        "poddisruptionbudgets",
       ]
       verbs = [
         "get",
