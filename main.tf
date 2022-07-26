@@ -18,7 +18,7 @@ resource "kubernetes_role" "github_actions_role" {
     namespace = var.namespace
   }
 
-  dynamic rule {
+  dynamic "rule" {
     for_each = var.serviceaccount_rules
     content {
       api_groups = rule.value.api_groups
