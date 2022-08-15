@@ -81,6 +81,8 @@ resource "github_actions_secret" "cluster-namespace" {
   plaintext_value = var.namespace
 }
 
+# Create environment and add serviceaccount secrets as environment secrets
+
 resource "github_repository_environment" "repo_environment" {
   for_each = var.enable_env_secret == true ? {
     for i in local.customer_env :
