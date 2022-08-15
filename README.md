@@ -33,47 +33,57 @@ Update: `./template/serviceaccount.tmpl`
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.14 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_github"></a> [github](#requirement\_github) | ~> 4.14.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| null | n/a |
+| <a name="provider_github"></a> [github](#provider\_github) | ~> 4.14.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| irsa_vpc_cni | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.6.0 |
+No modules.
 
 ## Resources
 
-| Name |
-|------|
-| [aws_eks_addon](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) |
-| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
-| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
-| [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) |
+| Name | Type |
+|------|------|
+| [github_actions_environment_secret.cluster-name](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_environment_secret.cluster-namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_environment_secret.serviceaccount-cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_environment_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_secret.cluster-name](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_actions_secret.cluster-namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_actions_secret.serviceaccount-cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_actions_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_repository_environment.repo_environment](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_environment) | resource |
+| [kubernetes_role.github_actions_role](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role) | resource |
+| [kubernetes_role_binding.github-actions-rolebinding](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_service_account.github_actions_serviceaccount](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
+| [kubernetes_secret.github_actions_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| addon\_coredns\_version | Version for addon\_coredns\_version | `string` | `"v1.8.4-eksbuild.1"` | no |
-| addon\_create\_coredns | Create coredns addon | `bool` | `true` | no |
-| addon\_create\_kube\_proxy | Create kube\_proxy addon | `bool` | `true` | no |
-| addon\_create\_vpc\_cni | Create vpc\_cni addon | `bool` | `true` | no |
-| addon\_kube\_proxy\_version | Version for addon\_kube\_proxy\_version | `string` | `"v1.21.2-eksbuild.2"` | no |
-| addon\_tags | Cluster addon tags | `map(string)` | `{}` | no |
-| addon\_vpc\_cni\_version | Version for addon\_create\_vpc\_cni | `string` | `"v1.9.3-eksbuild.1"` | no |
-| cluster\_name | Kubernetes cluster name - used to name (id) the auth0 resources | `any` | n/a | yes |
-| cluster\_oidc\_issuer\_url | Used to create the IAM OIDC role | `string` | `""` | no |
-| eks\_cluster\_id | trigger for null resource using eks\_cluster\_id | `any` | n/a | yes |
+| <a name="input_enable_sa_env_secret"></a> [enable\_sa\_env\_secret](#input\_enable\_sa\_env\_secret) | Enable environment secret | `bool` | `false` | no |
+| <a name="input_github_actions_secret_kube_cert"></a> [github\_actions\_secret\_kube\_cert](#input\_github\_actions\_secret\_kube\_cert) | The name of the github actions secret containing the serviceaccount ca.crt | `string` | `"KUBE_CERT"` | no |
+| <a name="input_github_actions_secret_kube_cluster"></a> [github\_actions\_secret\_kube\_cluster](#input\_github\_actions\_secret\_kube\_cluster) | The name of the github actions secret containing the kubernetes cluster name | `string` | `"KUBE_CLUSTER"` | no |
+| <a name="input_github_actions_secret_kube_namespace"></a> [github\_actions\_secret\_kube\_namespace](#input\_github\_actions\_secret\_kube\_namespace) | The name of the github actions secret containing the kubernetes namespace name | `string` | `"KUBE_NAMESPACE"` | no |
+| <a name="input_github_actions_secret_kube_token"></a> [github\_actions\_secret\_kube\_token](#input\_github\_actions\_secret\_kube\_token) | The name of the github actions secret containing the serviceaccount token | `string` | `"KUBE_TOKEN"` | no |
+| <a name="input_github_repositories"></a> [github\_repositories](#input\_github\_repositories) | GitHub repositories in which to create github actions secrets | `list(string)` | `[]` | no |
+| <a name="input_kubernetes_cluster"></a> [kubernetes\_cluster](#input\_kubernetes\_cluster) | The name of the kubernetes cluster, for app. deployment | `any` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace in which this serviceaccount will be created | `any` | n/a | yes |
+| <a name="input_role_name"></a> [role\_name](#input\_role\_name) | n/a | `string` | `"serviceaccount-role"` | no |
+| <a name="input_rolebinding_name"></a> [rolebinding\_name](#input\_rolebinding\_name) | n/a | `string` | `"serviceaccount-rolebinding"` | no |
+| <a name="input_serviceaccount_name"></a> [serviceaccount\_name](#input\_serviceaccount\_name) | The name of the serviceaccount | `string` | `"cd-serviceaccount"` | no |
+| <a name="input_serviceaccount_rules"></a> [serviceaccount\_rules](#input\_serviceaccount\_rules) | The capabilities of this serviceaccount | <pre>list(object({<br>    api_groups = list(string),<br>    resources  = list(string),<br>    verbs      = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "api_groups": [<br>      ""<br>    ],<br>    "resources": [<br>      "pods/portforward",<br>      "deployment",<br>      "secrets",<br>      "services",<br>      "configmaps",<br>      "pods"<br>    ],<br>    "verbs": [<br>      "patch",<br>      "get",<br>      "create",<br>      "update",<br>      "delete",<br>      "list",<br>      "watch"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "extensions",<br>      "apps",<br>      "batch",<br>      "networking.k8s.io",<br>      "policy"<br>    ],<br>    "resources": [<br>      "deployments",<br>      "ingresses",<br>      "cronjobs",<br>      "jobs",<br>      "replicasets",<br>      "poddisruptionbudgets"<br>    ],<br>    "verbs": [<br>      "get",<br>      "update",<br>      "delete",<br>      "create",<br>      "patch",<br>      "list",<br>      "watch"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "monitoring.coreos.com"<br>    ],<br>    "resources": [<br>      "prometheusrules"<br>    ],<br>    "verbs": [<br>      "*"<br>    ]<br>  }<br>]</pre> | no |
 
 ## Outputs
 
-No output.
+No outputs.
 
 <!--- END_TF_DOCS --->
