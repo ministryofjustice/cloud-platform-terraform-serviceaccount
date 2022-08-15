@@ -84,7 +84,7 @@ resource "github_actions_secret" "cluster-namespace" {
 # Create environment and add serviceaccount secrets as environment secrets
 
 resource "github_repository_environment" "repo_environment" {
-  for_each = var.enable_env_secret == true ? {
+  for_each = var.enable_sa_env_secret == true ? {
     for i in local.customer_env :
     i.repository => i
   } : {}
@@ -93,7 +93,7 @@ resource "github_repository_environment" "repo_environment" {
 }
 
 resource "github_actions_environment_secret" "serviceaccount-cert" {
-  for_each = var.enable_env_secret == true ? {
+  for_each = var.enable_sa_env_secret == true ? {
     for i in local.customer_env :
     i.repository => i
   } : {}
@@ -106,7 +106,7 @@ resource "github_actions_environment_secret" "serviceaccount-cert" {
 }
 
 resource "github_actions_environment_secret" "serviceaccount-token" {
-  for_each = var.enable_env_secret == true ? {
+  for_each = var.enable_sa_env_secret == true ? {
     for i in local.customer_env :
     i.repository => i
   } : {}
@@ -119,7 +119,7 @@ resource "github_actions_environment_secret" "serviceaccount-token" {
 }
 
 resource "github_actions_environment_secret" "cluster-name" {
-  for_each = var.enable_env_secret == true ? {
+  for_each = var.enable_sa_env_secret == true ? {
     for i in local.customer_env :
     i.repository => i
   } : {}
@@ -132,7 +132,7 @@ resource "github_actions_environment_secret" "cluster-name" {
 }
 
 resource "github_actions_environment_secret" "cluster-namespace" {
-  for_each = var.enable_env_secret == true ? {
+  for_each = var.enable_sa_env_secret == true ? {
     for i in local.customer_env :
     i.repository => i
   } : {}

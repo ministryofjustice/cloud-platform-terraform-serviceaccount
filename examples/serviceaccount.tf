@@ -10,7 +10,7 @@ module "serviceaccount" {
   namespace           = "my-namespace"
   github_repositories = ["my-repo"]
 
-  # Enabling "enable_env_secret" will create serviceaccount secrets as "Environment secrets"
+  # Enabling "enable_sa_env_secret" will create serviceaccount secrets as "Environment secrets"
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  enable_env_secret   = true
+  enable_sa_env_secret   = true
 }

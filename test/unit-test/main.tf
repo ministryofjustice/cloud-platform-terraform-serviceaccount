@@ -8,5 +8,5 @@ module "example_sa" {
 
   namespace           = "my-namespace"
   github_repositories = ["my-repo"]
-  enable_env_secret   = true
+  enable_sa_env_secret   = true
 }
