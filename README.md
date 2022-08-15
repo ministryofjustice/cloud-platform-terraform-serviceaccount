@@ -59,7 +59,6 @@ No modules.
 | [github_actions_secret.cluster-namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
 | [github_actions_secret.serviceaccount-cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
 | [github_actions_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
-| [github_repository_environment.repo_environment](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_environment) | resource |
 | [kubernetes_role.github_actions_role](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role) | resource |
 | [kubernetes_role_binding.github-actions-rolebinding](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
 | [kubernetes_service_account.github_actions_serviceaccount](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
@@ -69,11 +68,11 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_enable_sa_env_secret"></a> [enable\_sa\_env\_secret](#input\_enable\_sa\_env\_secret) | Enable environment secret | `bool` | `false` | no |
 | <a name="input_github_actions_secret_kube_cert"></a> [github\_actions\_secret\_kube\_cert](#input\_github\_actions\_secret\_kube\_cert) | The name of the github actions secret containing the serviceaccount ca.crt | `string` | `"KUBE_CERT"` | no |
 | <a name="input_github_actions_secret_kube_cluster"></a> [github\_actions\_secret\_kube\_cluster](#input\_github\_actions\_secret\_kube\_cluster) | The name of the github actions secret containing the kubernetes cluster name | `string` | `"KUBE_CLUSTER"` | no |
 | <a name="input_github_actions_secret_kube_namespace"></a> [github\_actions\_secret\_kube\_namespace](#input\_github\_actions\_secret\_kube\_namespace) | The name of the github actions secret containing the kubernetes namespace name | `string` | `"KUBE_NAMESPACE"` | no |
 | <a name="input_github_actions_secret_kube_token"></a> [github\_actions\_secret\_kube\_token](#input\_github\_actions\_secret\_kube\_token) | The name of the github actions secret containing the serviceaccount token | `string` | `"KUBE_TOKEN"` | no |
+| <a name="input_github_environments"></a> [github\_environments](#input\_github\_environments) | GitHub environment in which to create github actions secrets | `list(string)` | `[]` | no |
 | <a name="input_github_repositories"></a> [github\_repositories](#input\_github\_repositories) | GitHub repositories in which to create github actions secrets | `list(string)` | `[]` | no |
 | <a name="input_kubernetes_cluster"></a> [kubernetes\_cluster](#input\_kubernetes\_cluster) | The name of the kubernetes cluster, for app. deployment | `any` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace in which this serviceaccount will be created | `any` | n/a | yes |
