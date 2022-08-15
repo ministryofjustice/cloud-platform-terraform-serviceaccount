@@ -1,3 +1,11 @@
+locals {
+  customer_env = toset([
+    for repository in var.github_repositories : {
+      repository = repository
+    }
+  ])
+}
+
 resource "kubernetes_service_account" "github_actions_serviceaccount" {
   metadata {
     name      = var.serviceaccount_name
@@ -18,7 +26,7 @@ resource "kubernetes_role" "github_actions_role" {
     namespace = var.namespace
   }
 
-  dynamic rule {
+  dynamic "rule" {
     for_each = var.serviceaccount_rules
     content {
       api_groups = rule.value.api_groups
@@ -71,4 +79,65 @@ resource "github_actions_secret" "cluster-namespace" {
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_namespace
   plaintext_value = var.namespace
+}
+
+resource "github_repository_environment" "repo_environment" {
+  for_each = var.enable_env_secret == true ? {
+    for i in local.customer_env :
+    i.repository => i
+  } : {}
+  repository  = each.key
+  environment = "${each.key}-sa"
+}
+
+resource "github_actions_environment_secret" "serviceaccount-cert" {
+  for_each = var.enable_env_secret == true ? {
+    for i in local.customer_env :
+    i.repository => i
+  } : {}
+  repository      = each.key
+  environment     = "${each.key}-sa"
+  secret_name     = var.github_actions_secret_kube_cert
+  plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "ca.crt")
+
+  depends_on = [github_repository_environment.repo_environment]
+}
+
+resource "github_actions_environment_secret" "serviceaccount-token" {
+  for_each = var.enable_env_secret == true ? {
+    for i in local.customer_env :
+    i.repository => i
+  } : {}
+  repository      = each.key
+  environment     = "${each.key}-sa"
+  secret_name     = var.github_actions_secret_kube_token
+  plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "token")
+
+  depends_on = [github_repository_environment.repo_environment]
+}
+
+resource "github_actions_environment_secret" "cluster-name" {
+  for_each = var.enable_env_secret == true ? {
+    for i in local.customer_env :
+    i.repository => i
+  } : {}
+  repository      = each.key
+  environment     = "${each.key}-sa"
+  secret_name     = var.github_actions_secret_kube_cluster
+  plaintext_value = var.kubernetes_cluster
+
+  depends_on = [github_repository_environment.repo_environment]
+}
+
+resource "github_actions_environment_secret" "cluster-namespace" {
+  for_each = var.enable_env_secret == true ? {
+    for i in local.customer_env :
+    i.repository => i
+  } : {}
+  repository      = each.key
+  environment     = "${each.key}-sa"
+  secret_name     = var.github_actions_secret_kube_namespace
+  plaintext_value = var.namespace
+
+  depends_on = [github_repository_environment.repo_environment]
 }

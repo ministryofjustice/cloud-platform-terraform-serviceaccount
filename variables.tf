@@ -115,3 +115,9 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
 }
+
+variable "enable_env_secret" {
+  description = "Enable environment secret"
+  default     = false
+  type        = bool
+}
