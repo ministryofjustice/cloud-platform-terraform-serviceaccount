@@ -19,21 +19,6 @@ If a list of GitHub repositories is supplied via the `github_repositories` varia
 
 _Note_ The terraform Github provider does not seem to trigger on changes in the parameters, but deleting the `serviceaccount` in the namespace will make it update the repo secrets too.
 
-## Inputs
-
-| Name                                 | Description                                                                  |     Type     |          Default           | Required |
-| ------------------------------------ | ---------------------------------------------------------------------------- | :----------: | :------------------------: | :------: |
-| namespace                            | The namespace in which to create the serviceaccount                          |    string    |                            |   yes    |
-| serviceaccount_name                  | The name of the serviceaccount                                               |    string    |     cd-serviceaccount      |    no    |
-| role_name                            | The name of the created role                                                 |    string    |    serviceaccount-role     |    no    |
-| rolebinding_name                     | The name of the created rolebinding                                          |    string    | serviceaccount-rolebinding |    no    |
-| github_repositories                  | GitHub repositories in which to create Github Actions Secrets                | list(string) |             []             |    no    |
-| github_actions_secret_kube_cert      | The name of the Github Actions Secret containing the `ca.crt`                |    string    |         KUBE_CERT          |    no    |
-| github_actions_secret_kube_token     | The name of the Github Actions Secret containing the `token`                 |    string    |         KUBE_TOKEN         |    no    |
-| github_actions_secret_kube_cluster   | The name of the Github Actions Secret containing the kubernetes cluster name |    string    |        KUBE_CLUSTER        |    no    |
-| github_actions_secret_kube_namespace | The name of the Github Actions Secret containing the namespace name          |    string    |       KUBE_NAMESPACE       |    no    |
-| serviceaccount_rules                 | The capabilities of the serviceaccount                                       | list(object) |     see `variables.tf`     |    no    |
-
 [github actions secrets]: https://docs.github.com/en/actions/reference/encrypted-secrets
 
 ## Release
@@ -41,3 +26,54 @@ _Note_ The terraform Github provider does not seem to trigger on changes in the 
 When making changes to this Terraform module you'll need to update the template file as it points to a specific version.
 
 Update: `./template/serviceaccount.tmpl`
+
+
+<!--- BEGIN_TF_DOCS --->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.14 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+| null | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| irsa_vpc_cni | terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc | 4.6.0 |
+
+## Resources
+
+| Name |
+|------|
+| [aws_eks_addon](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) |
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
+| [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| addon\_coredns\_version | Version for addon\_coredns\_version | `string` | `"v1.8.4-eksbuild.1"` | no |
+| addon\_create\_coredns | Create coredns addon | `bool` | `true` | no |
+| addon\_create\_kube\_proxy | Create kube\_proxy addon | `bool` | `true` | no |
+| addon\_create\_vpc\_cni | Create vpc\_cni addon | `bool` | `true` | no |
+| addon\_kube\_proxy\_version | Version for addon\_kube\_proxy\_version | `string` | `"v1.21.2-eksbuild.2"` | no |
+| addon\_tags | Cluster addon tags | `map(string)` | `{}` | no |
+| addon\_vpc\_cni\_version | Version for addon\_create\_vpc\_cni | `string` | `"v1.9.3-eksbuild.1"` | no |
+| cluster\_name | Kubernetes cluster name - used to name (id) the auth0 resources | `any` | n/a | yes |
+| cluster\_oidc\_issuer\_url | Used to create the IAM OIDC role | `string` | `""` | no |
+| eks\_cluster\_id | trigger for null resource using eks\_cluster\_id | `any` | n/a | yes |
+
+## Outputs
+
+No output.
+
+<!--- END_TF_DOCS --->
