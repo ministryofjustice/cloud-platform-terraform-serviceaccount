@@ -96,6 +96,12 @@ variable "github_repositories" {
   default     = []
 }
 
+variable "github_environments" {
+  description = "GitHub environment in which to create github actions secrets"
+  type        = list(string)
+  default     = []
+}
+
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
   default     = "KUBE_CLUSTER"
