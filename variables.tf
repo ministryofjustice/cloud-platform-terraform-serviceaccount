@@ -1,14 +1,17 @@
 variable "kubernetes_cluster" {
   description = "The name of the kubernetes cluster, for app. deployment"
+  type        = string
 }
 
 variable "namespace" {
   description = "The namespace in which this serviceaccount will be created"
+  type        = string
 }
 
 variable "serviceaccount_name" {
   description = "The name of the serviceaccount"
   default     = "cd-serviceaccount"
+  type        = string
 }
 
 variable "serviceaccount_rules" {
@@ -83,11 +86,15 @@ variable "serviceaccount_rules" {
 }
 
 variable "role_name" {
-  default = "serviceaccount-role"
+  default     = "serviceaccount-role"
+  description = "Kubernetes role name"
+  type        = string
 }
 
 variable "rolebinding_name" {
-  default = "serviceaccount-rolebinding"
+  description = "Kubernetes to GitHub actions rolebinding name"
+  default     = "serviceaccount-rolebinding"
+  type        = string
 }
 
 variable "github_repositories" {
@@ -105,19 +112,23 @@ variable "github_environments" {
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
   default     = "KUBE_CLUSTER"
+  type        = string
 }
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
   default     = "KUBE_NAMESPACE"
+  type        = string
 }
 
 variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
   default     = "KUBE_CERT"
+  type        = string
 }
 
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
+  type        = string
 }
