@@ -34,7 +34,7 @@ data "kubernetes_secret" "github_actions_secret" {
   }
 }
 
-resource "kubernetes_role" "github_actions_role" {
+resource "kubernetes_role_v1" "github_actions_role" {
   metadata {
     name      = var.role_name
     namespace = var.namespace
@@ -50,7 +50,7 @@ resource "kubernetes_role" "github_actions_role" {
   }
 }
 
-resource "kubernetes_role_binding" "github-actions-rolebinding" {
+resource "kubernetes_role_binding_v1" "github-actions-rolebinding" {
   metadata {
     name      = var.rolebinding_name
     namespace = var.namespace
