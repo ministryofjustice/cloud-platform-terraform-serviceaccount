@@ -58,7 +58,7 @@ resource "kubernetes_role_binding_v1" "github-actions-rolebinding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Role"
-    name      = kubernetes_role.github_actions_role.metadata[0].name
+    name      = kubernetes_role_v1.github_actions_role.metadata[0].name
   }
   subject {
     kind      = "ServiceAccount"
