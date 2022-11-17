@@ -60,8 +60,8 @@ No modules.
 | [github_actions_secret.cluster-namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
 | [github_actions_secret.serviceaccount-cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
 | [github_actions_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
-| [kubernetes_role.github_actions_role](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role) | resource |
-| [kubernetes_role_binding.github-actions-rolebinding](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding_v1.github-actions-rolebinding](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding_v1) | resource |
+| [kubernetes_role_v1.github_actions_role](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_v1) | resource |
 | [kubernetes_service_account.github_actions_serviceaccount](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
 | [kubernetes_secret.github_actions_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret) | data source |
 
