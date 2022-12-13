@@ -35,14 +35,14 @@ Update: `./template/serviceaccount.tmpl`
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
 | <a name="requirement_github"></a> [github](#requirement\_github) | >= 4.14.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.12.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_github"></a> [github](#provider\_github) | >= 4.14.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.0.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.12.1 |
 
 ## Modules
 
