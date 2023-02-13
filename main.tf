@@ -70,28 +70,28 @@ resource "kubernetes_role_binding" "github-actions-rolebinding" {
 resource "github_actions_secret" "serviceaccount-cert" {
   for_each        = toset(var.github_repositories)
   repository      = each.key
-  secret_name     = var.github_actions_secret_kube_cert
+  secret_name     = var.env_prefix != "" ? "${var.env_prefix}_${var.github_actions_secret_kube_cert}" : var.github_actions_secret_kube_cert
   plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "ca.crt")
 }
 
 resource "github_actions_secret" "serviceaccount-token" {
   for_each        = toset(var.github_repositories)
   repository      = each.key
-  secret_name     = var.github_actions_secret_kube_token
+  secret_name     = var.env_prefix  != ""? "${var.env_prefix}_${var.github_actions_secret_kube_token}" : var.github_actions_secret_kube_token
   plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "token")
 }
 
 resource "github_actions_secret" "cluster-name" {
   for_each        = toset(var.github_repositories)
   repository      = each.key
-  secret_name     = var.github_actions_secret_kube_cluster
+  secret_name     = var.env_prefix != "" ? "${var.env_prefix}_${var.github_actions_secret_kube_cluster}" : var.github_actions_secret_kube_cluster
   plaintext_value = var.kubernetes_cluster
 }
 
 resource "github_actions_secret" "cluster-namespace" {
   for_each        = toset(var.github_repositories)
   repository      = each.key
-  secret_name     = var.github_actions_secret_kube_namespace
+  secret_name     = var.env_prefix != "" ? "${var.env_prefix}_${var.github_actions_secret_kube_namespace}" : var.github_actions_secret_kube_namespace
   plaintext_value = var.namespace
 }
 
@@ -103,7 +103,7 @@ resource "github_actions_environment_secret" "serviceaccount-cert" {
   }
   repository      = each.value.repository
   environment     = each.value.environment
-  secret_name     = var.github_actions_secret_kube_cert
+  secret_name     = var.env_prefix != "" ? "${var.env_prefix}_${var.github_actions_secret_kube_cert}" : var.github_actions_secret_kube_cert
   plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "ca.crt")
 }
 
@@ -113,7 +113,7 @@ resource "github_actions_environment_secret" "serviceaccount-token" {
   }
   repository      = each.value.repository
   environment     = each.value.environment
-  secret_name     = var.github_actions_secret_kube_token
+  secret_name     = var.env_prefix != "" ? "${var.env_prefix}_${var.github_actions_secret_kube_token}" : var.github_actions_secret_kube_token
   plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "token")
 }
 
@@ -123,7 +123,7 @@ resource "github_actions_environment_secret" "cluster-name" {
   }
   repository      = each.value.repository
   environment     = each.value.environment
-  secret_name     = var.github_actions_secret_kube_cluster
+  secret_name     = var.env_prefix != "" ?  "${var.env_prefix}_${var.github_actions_secret_kube_cluster}" : var.github_actions_secret_kube_cluster
   plaintext_value = var.kubernetes_cluster
 }
 
@@ -133,6 +133,6 @@ resource "github_actions_environment_secret" "cluster-namespace" {
   }
   repository      = each.value.repository
   environment     = each.value.environment
-  secret_name     = var.github_actions_secret_kube_namespace
+  secret_name     = var.env_prefix != "" ? "${var.env_prefix}_${var.github_actions_secret_kube_namespace}" : var.github_actions_secret_kube_namespace
   plaintext_value = var.namespace
 }

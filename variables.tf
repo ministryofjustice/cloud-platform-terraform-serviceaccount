@@ -132,3 +132,9 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN"
   type        = string
 }
+
+variable "env_prefix" {
+  description = "the prefix for github actions secret name eg. DEV or PROD"
+  default     = ""
+  type        = string
+}
