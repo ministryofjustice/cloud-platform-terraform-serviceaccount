@@ -8,7 +8,7 @@ The default set of capabilities is usually sufficient for a CI/CD pipeline. Thes
 
 ## GitHub Actions Secrets
 
-If a list of GitHub repositories is supplied via the `github_repositories` variable, the following [GitHub Actions Secrets] will be created in those repositories:
+If a list of GitHub repositories is supplied via the `github_repositories` variable, the [GitHub Actions Secrets] below will be created in those repositories. If you need to specify a prefix for those variables (useful for multi-cluster applications), you can do so with the `env_prefix` variable:
 
 | Default secret name | Description             | Terraform variable to change the name  |
 | ------------------- | ----------------------- | -------------------------------------- |
