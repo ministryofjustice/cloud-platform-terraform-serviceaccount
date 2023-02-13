@@ -69,6 +69,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_env_prefix"></a> [env\_prefix](#input\_env\_prefix) | the prefix for github actions secret name eg. DEV or PROD | `string` | `""` | no |
 | <a name="input_github_actions_secret_kube_cert"></a> [github\_actions\_secret\_kube\_cert](#input\_github\_actions\_secret\_kube\_cert) | The name of the github actions secret containing the serviceaccount ca.crt | `string` | `"KUBE_CERT"` | no |
 | <a name="input_github_actions_secret_kube_cluster"></a> [github\_actions\_secret\_kube\_cluster](#input\_github\_actions\_secret\_kube\_cluster) | The name of the github actions secret containing the kubernetes cluster name | `string` | `"KUBE_CLUSTER"` | no |
 | <a name="input_github_actions_secret_kube_namespace"></a> [github\_actions\_secret\_kube\_namespace](#input\_github\_actions\_secret\_kube\_namespace) | The name of the github actions secret containing the kubernetes namespace name | `string` | `"KUBE_NAMESPACE"` | no |
