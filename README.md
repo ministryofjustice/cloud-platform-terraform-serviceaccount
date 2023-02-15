@@ -33,7 +33,7 @@ Update: `./template/serviceaccount.tmpl`
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.5 |
 | <a name="requirement_github"></a> [github](#requirement\_github) | >= 4.14.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.12.1 |
 
