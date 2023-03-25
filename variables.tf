@@ -125,10 +125,12 @@ variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
   default     = "KUBE_CERT"
   type        = string
+  sensitive   = true
 }
 
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
   type        = string
+  sensitive   = true
 }
