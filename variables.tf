@@ -134,3 +134,9 @@ variable "github_actions_secret_kube_token" {
   type        = string
   sensitive   = true
 }
+
+variable "serviceaccount_token_rotated_date" {
+  type        = string
+  default     = "dd-mm-yyyy"
+  description = "Process to spin serviceaccount token. Pass date to regenerate new token"
+}
