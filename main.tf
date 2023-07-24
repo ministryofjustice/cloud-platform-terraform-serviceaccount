@@ -33,10 +33,11 @@ resource "kubernetes_service_account" "github_actions_serviceaccount" {
 
 resource "kubernetes_secret_v1" "serviceaccount-token" {
   metadata {
-    name      = "${var.serviceaccount_name}-token"
+    name      = "${var.serviceaccount_name}-token-${var.serviceaccount_token_rotated_date}"
     namespace = var.namespace
     annotations = {
       "kubernetes.io/service-account.name" = var.serviceaccount_name
+      "secret-rotated-date"                = var.serviceaccount_token_rotated_date
     }
   }
 
