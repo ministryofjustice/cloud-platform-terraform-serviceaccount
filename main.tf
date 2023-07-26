@@ -29,6 +29,9 @@ resource "kubernetes_service_account" "github_actions_serviceaccount" {
   secret {
     name = kubernetes_secret_v1.serviceaccount-token.metadata[0].name
   }
+
+  depends_on = [ 
+    kubernetes_secret_v1.serviceaccount-token ]
 }
 
 resource "kubernetes_secret_v1" "serviceaccount-token" {
