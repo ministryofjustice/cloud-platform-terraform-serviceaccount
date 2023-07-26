@@ -27,11 +27,8 @@ resource "kubernetes_service_account" "github_actions_serviceaccount" {
   }
 
   secret {
-    name = kubernetes_secret_v1.serviceaccount-token.metadata[0].name
+    name = "${var.serviceaccount_name}-token-${var.serviceaccount_token_rotated_date}"
   }
-
-  depends_on = [ 
-    kubernetes_secret_v1.serviceaccount-token ]
 }
 
 resource "kubernetes_secret_v1" "serviceaccount-token" {
@@ -45,6 +42,10 @@ resource "kubernetes_secret_v1" "serviceaccount-token" {
   }
 
   type = "kubernetes.io/service-account-token"
+
+  depends_on = [ 
+    kubernetes_service_account.github_actions_serviceaccount 
+  ]
 }
 
 resource "kubernetes_role" "github_actions_role" {
