@@ -1,3 +1,6 @@
+#################
+# Configuration #
+#################
 variable "kubernetes_cluster" {
   description = "The name of the kubernetes cluster, for app. deployment"
   type        = string
