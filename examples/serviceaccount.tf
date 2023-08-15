@@ -1,14 +1,9 @@
-/*
- * When using this module through the cloud-platform-environments,
- * this variable is automatically supplied by the pipeline TF_VAR_kubernetes_cluster.
- *
-*/
-variable "kubernetes_cluster" {}
 module "serviceaccount" {
   source = "../"
 
   namespace           = "my-namespace"
   github_repositories = ["my-repo"]
+  kubernetes_cluster  = "live-1"
 
   # Pass the below variable to rotate your service account token. The token name will be appended with your rotation date, ie "cd-serviceaccount-token-01-01-2021"
   serviceaccount_token_rotated_date = "dd-mm-yyyy"

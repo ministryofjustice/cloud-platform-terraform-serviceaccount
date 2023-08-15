@@ -28,7 +28,7 @@ When making changes to this Terraform module you'll need to update the template 
 Update: `./template/serviceaccount.tmpl`
 
 
-<!--- BEGIN_TF_DOCS --->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -89,5 +89,4 @@ No modules.
 |------|-------------|
 | <a name="output_default_secret_name"></a> [default\_secret\_name](#output\_default\_secret\_name) | Name of the Kubernetes secret containing the service account's credentials |
 | <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Service account metadata |
-
-<!--- END_TF_DOCS --->
+<!-- END_TF_DOCS -->
