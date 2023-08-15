@@ -25,13 +25,27 @@ resource "kubernetes_service_account" "github_actions_serviceaccount" {
     name      = var.serviceaccount_name
     namespace = var.namespace
   }
+
+  secret {
+    name = "${var.serviceaccount_name}-token-${var.serviceaccount_token_rotated_date}"
+  }
 }
 
-data "kubernetes_secret" "github_actions_secret" {
+resource "kubernetes_secret_v1" "serviceaccount-token" {
   metadata {
-    name      = kubernetes_service_account.github_actions_serviceaccount.default_secret_name
+    name      = "${var.serviceaccount_name}-token-${var.serviceaccount_token_rotated_date}"
     namespace = var.namespace
+    annotations = {
+      "kubernetes.io/service-account.name" = var.serviceaccount_name
+      "secret-rotated-date"                = var.serviceaccount_token_rotated_date
+    }
   }
+
+  type = "kubernetes.io/service-account-token"
+
+  depends_on = [ 
+    kubernetes_service_account.github_actions_serviceaccount 
+  ]
 }
 
 resource "kubernetes_role" "github_actions_role" {
@@ -71,14 +85,14 @@ resource "github_actions_secret" "serviceaccount-cert" {
   for_each        = toset(var.github_repositories)
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_cert
-  plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "ca.crt")
+  plaintext_value = lookup(kubernetes_secret_v1.serviceaccount-token.data, "ca.crt")
 }
 
 resource "github_actions_secret" "serviceaccount-token" {
   for_each        = toset(var.github_repositories)
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_token
-  plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "token")
+  plaintext_value = lookup(kubernetes_secret_v1.serviceaccount-token.data, "token")
 }
 
 resource "github_actions_secret" "cluster-name" {
@@ -104,7 +118,7 @@ resource "github_actions_environment_secret" "serviceaccount-cert" {
   repository      = each.value.repository
   environment     = each.value.environment
   secret_name     = var.github_actions_secret_kube_cert
-  plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "ca.crt")
+  plaintext_value = sensitive(lookup(kubernetes_secret_v1.serviceaccount-token.data, "ca.crt"))
 }
 
 resource "github_actions_environment_secret" "serviceaccount-token" {
@@ -114,7 +128,7 @@ resource "github_actions_environment_secret" "serviceaccount-token" {
   repository      = each.value.repository
   environment     = each.value.environment
   secret_name     = var.github_actions_secret_kube_token
-  plaintext_value = lookup(data.kubernetes_secret.github_actions_secret.data, "token")
+  plaintext_value = sensitive(lookup(kubernetes_secret_v1.serviceaccount-token.data, "token"))
 }
 
 resource "github_actions_environment_secret" "cluster-name" {

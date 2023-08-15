@@ -62,8 +62,8 @@ No modules.
 | [github_actions_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
 | [kubernetes_role.github_actions_role](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role) | resource |
 | [kubernetes_role_binding.github-actions-rolebinding](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_secret_v1.serviceaccount-token](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
 | [kubernetes_service_account.github_actions_serviceaccount](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
-| [kubernetes_secret.github_actions_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret) | data source |
 
 ## Inputs
 
@@ -81,8 +81,8 @@ No modules.
 | <a name="input_rolebinding_name"></a> [rolebinding\_name](#input\_rolebinding\_name) | Kubernetes to GitHub actions rolebinding name | `string` | `"serviceaccount-rolebinding"` | no |
 | <a name="input_serviceaccount_name"></a> [serviceaccount\_name](#input\_serviceaccount\_name) | The name of the serviceaccount | `string` | `"cd-serviceaccount"` | no |
 | <a name="input_serviceaccount_rules"></a> [serviceaccount\_rules](#input\_serviceaccount\_rules) | The capabilities of this serviceaccount | <pre>list(object({<br>    api_groups = list(string),<br>    resources  = list(string),<br>    verbs      = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "api_groups": [<br>      ""<br>    ],<br>    "resources": [<br>      "pods/portforward",<br>      "deployment",<br>      "secrets",<br>      "services",<br>      "configmaps",<br>      "pods"<br>    ],<br>    "verbs": [<br>      "patch",<br>      "get",<br>      "create",<br>      "update",<br>      "delete",<br>      "list",<br>      "watch"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "extensions",<br>      "apps",<br>      "batch",<br>      "networking.k8s.io",<br>      "policy"<br>    ],<br>    "resources": [<br>      "deployments",<br>      "ingresses",<br>      "cronjobs",<br>      "jobs",<br>      "replicasets",<br>      "poddisruptionbudgets"<br>    ],<br>    "verbs": [<br>      "get",<br>      "update",<br>      "delete",<br>      "create",<br>      "patch",<br>      "list",<br>      "watch"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "monitoring.coreos.com"<br>    ],<br>    "resources": [<br>      "prometheusrules"<br>    ],<br>    "verbs": [<br>      "*"<br>    ]<br>  }<br>]</pre> | no |
+| <a name="input_serviceaccount_token_rotated_date"></a> [serviceaccount\_token\_rotated\_date](#input\_serviceaccount\_token\_rotated\_date) | Process to spin serviceaccount token. Pass date to regenerate new token | `string` | `"dd-mm-yyyy"` | no |
 
 ## Outputs
 
-No outputs.
-<!-- END_TF_DOCS -->
+<!--- END_TF_DOCS --->
