@@ -85,4 +85,8 @@ No modules.
 
 ## Outputs
 
-<!--- END_TF_DOCS --->
+| Name | Description |
+|------|-------------|
+| <a name="output_default_secret_name"></a> [default\_secret\_name](#output\_default\_secret\_name) | Name of the Kubernetes secret containing the service account's credentials |
+| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Service account metadata |
+<!-- END_TF_DOCS -->
