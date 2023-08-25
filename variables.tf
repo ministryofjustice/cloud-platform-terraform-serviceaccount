@@ -143,3 +143,9 @@ variable "serviceaccount_token_rotated_date" {
   default     = "dd-mm-yyyy"
   description = "Process to spin serviceaccount token. Pass date to regenerate new token"
 }
+
+variable "disable_actions_secrets" {
+  type        = bool
+  default     = false
+  description = "When creatin github environment secrets, optionally disable the creation of repository level secrets."
+}
