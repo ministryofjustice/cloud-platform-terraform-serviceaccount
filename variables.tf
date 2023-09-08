@@ -63,6 +63,7 @@ variable "serviceaccount_rules" {
         "jobs",
         "replicasets",
         "poddisruptionbudgets",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -80,6 +81,7 @@ variable "serviceaccount_rules" {
       ]
       resources = [
         "prometheusrules",
+        "servicemonitors",
       ]
       verbs = [
         "*",
