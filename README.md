@@ -2,7 +2,7 @@
 
 [![Releases](https://img.shields.io/github/release/ministryofjustice/cloud-platform-terraform-serviceaccount/all.svg?style=flat-square)](https://github.com/ministryofjustice/cloud-platform-terraform-serviceaccount/releases)
 
-This Terraform module will create a kubernetes serviceaccount, role and rolebinding in the specified namespace.
+This Terraform module will create a kubernetes serviceaccount, role, rolebinding and associated secret for your serviceaccount token in the specified namespace.
 
 The default set of capabilities is usually sufficient for a CI/CD pipeline. These capabilities can be overridden by specifying the `serviceaccount_rules` variable (see `variables.tf` for details).
 
