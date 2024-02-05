@@ -21,9 +21,10 @@ variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 
   type = list(object({
-    api_groups = list(string),
-    resources  = list(string),
-    verbs      = list(string)
+    api_groups     = list(string),
+    resources      = list(string),
+    resrouce_names = list(string),
+    verbs          = list(string)
   }))
 
   # These values are usually sufficient for a CI/CD pipeline

@@ -20,6 +20,7 @@ locals {
   ]
 }
 
+# this is not strictly for github_actions the name is inaccurate, changing the name will recreate lots of service accounts though
 resource "kubernetes_service_account" "github_actions_serviceaccount" {
   metadata {
     name      = var.serviceaccount_name
@@ -48,6 +49,7 @@ resource "kubernetes_secret_v1" "serviceaccount-token" {
   ]
 }
 
+# this is not strictly for github_actions the name is inaccurate, changing the name will recreate lots of roles
 resource "kubernetes_role" "github_actions_role" {
   metadata {
     name      = var.role_name
@@ -57,13 +59,15 @@ resource "kubernetes_role" "github_actions_role" {
   dynamic "rule" {
     for_each = var.serviceaccount_rules
     content {
-      api_groups = rule.value.api_groups
-      resources  = rule.value.resources
-      verbs      = rule.value.verbs
+      api_groups     = rule.value.api_groups
+      resources      = rule.value.resources
+      resource_names = rule.value.resource_names
+      verbs          = rule.value.verbs
     }
   }
 }
 
+# this is not strictly for github_actions the name is inaccurate, changing the name will recreate lots of role bindings
 resource "kubernetes_role_binding" "github-actions-rolebinding" {
   metadata {
     name      = var.rolebinding_name
