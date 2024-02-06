@@ -23,7 +23,7 @@ variable "serviceaccount_rules" {
   type = list(object({
     api_groups     = list(string),
     resources      = list(string),
-    resrouce_names = list(string),
+    resource_names = list(string),
     verbs          = list(string)
   }))
 
