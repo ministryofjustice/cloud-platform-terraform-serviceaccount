@@ -51,18 +51,18 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [github_actions_environment_secret.cluster-name](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
-| [github_actions_environment_secret.cluster-namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
-| [github_actions_environment_secret.serviceaccount-cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
-| [github_actions_environment_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
-| [github_actions_secret.cluster-name](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
-| [github_actions_secret.cluster-namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
-| [github_actions_secret.serviceaccount-cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
-| [github_actions_secret.serviceaccount-token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
-| [kubernetes_role.github_actions_role](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role) | resource |
-| [kubernetes_role_binding.github-actions-rolebinding](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
-| [kubernetes_secret_v1.serviceaccount-token](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
-| [kubernetes_service_account.github_actions_serviceaccount](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
+| [github_actions_environment_secret.cluster_name](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_environment_secret.cluster_namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_environment_secret.serviceaccount_cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_environment_secret.serviceaccount_token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_environment_secret) | resource |
+| [github_actions_secret.cluster_name](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_actions_secret.cluster_namespace](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_actions_secret.serviceaccount_cert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [github_actions_secret.serviceaccount_token](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) | resource |
+| [kubernetes_role.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role) | resource |
+| [kubernetes_role_binding.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_secret_v1.serviceaccount_token](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
+| [kubernetes_service_account.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
 
 ## Inputs
 
@@ -77,7 +77,7 @@ No modules.
 | <a name="input_kubernetes_cluster"></a> [kubernetes\_cluster](#input\_kubernetes\_cluster) | The name of the kubernetes cluster, for app. deployment | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace in which this serviceaccount will be created | `string` | n/a | yes |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Kubernetes role name | `string` | `"serviceaccount-role"` | no |
-| <a name="input_rolebinding_name"></a> [rolebinding\_name](#input\_rolebinding\_name) | Kubernetes to GitHub actions rolebinding name | `string` | `"serviceaccount-rolebinding"` | no |
+| <a name="input_rolebinding_name"></a> [rolebinding\_name](#input\_rolebinding\_name) | Kubernetes to External CI/ CD rolebinding name | `string` | `"serviceaccount-rolebinding"` | no |
 | <a name="input_serviceaccount_name"></a> [serviceaccount\_name](#input\_serviceaccount\_name) | The name of the serviceaccount | `string` | `"cd-serviceaccount"` | no |
 | <a name="input_serviceaccount_rules"></a> [serviceaccount\_rules](#input\_serviceaccount\_rules) | The capabilities of this serviceaccount | <pre>list(object({<br>    api_groups = list(string),<br>    resources  = list(string),<br>    verbs      = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "api_groups": [<br>      ""<br>    ],<br>    "resources": [<br>      "pods/portforward",<br>      "deployment",<br>      "secrets",<br>      "services",<br>      "configmaps",<br>      "pods"<br>    ],<br>    "verbs": [<br>      "patch",<br>      "get",<br>      "create",<br>      "update",<br>      "delete",<br>      "list",<br>      "watch"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "extensions",<br>      "apps",<br>      "batch",<br>      "networking.k8s.io",<br>      "policy"<br>    ],<br>    "resources": [<br>      "deployments",<br>      "ingresses",<br>      "cronjobs",<br>      "jobs",<br>      "replicasets",<br>      "poddisruptionbudgets",<br>      "networkpolicies"<br>    ],<br>    "verbs": [<br>      "get",<br>      "update",<br>      "delete",<br>      "create",<br>      "patch",<br>      "list",<br>      "watch"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "monitoring.coreos.com"<br>    ],<br>    "resources": [<br>      "prometheusrules",<br>      "servicemonitors"<br>    ],<br>    "verbs": [<br>      "*"<br>    ]<br>  },<br>  {<br>    "api_groups": [<br>      "autoscaling"<br>    ],<br>    "resources": [<br>      "hpa",<br>      "horizontalpodautoscalers"<br>    ],<br>    "verbs": [<br>      "get",<br>      "update",<br>      "delete",<br>      "create",<br>      "patch"<br>    ]<br>  }<br>]</pre> | no |
 | <a name="input_serviceaccount_token_rotated_date"></a> [serviceaccount\_token\_rotated\_date](#input\_serviceaccount\_token\_rotated\_date) | Process to spin serviceaccount token. Pass date to regenerate new token | `string` | `"dd-mm-yyyy"` | no |
