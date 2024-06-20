@@ -20,14 +20,14 @@ locals {
   ]
 }
 
-resource "kubernetes_service_account" "github_actions_serviceaccount" {
+resource "kubernetes_service_account" "this" {
   metadata {
     name      = var.serviceaccount_name
     namespace = var.namespace
   }
 }
 
-resource "kubernetes_secret_v1" "serviceaccount-token" {
+resource "kubernetes_secret_v1" "serviceaccount_token" {
   metadata {
     name      = "${var.serviceaccount_name}-token-${var.serviceaccount_token_rotated_date}"
     namespace = var.namespace
@@ -40,11 +40,11 @@ resource "kubernetes_secret_v1" "serviceaccount-token" {
   type = "kubernetes.io/service-account-token"
 
   depends_on = [
-    kubernetes_service_account.github_actions_serviceaccount
+    kubernetes_service_account.this
   ]
 }
 
-resource "kubernetes_role" "github_actions_role" {
+resource "kubernetes_role" "this" {
   metadata {
     name      = var.role_name
     namespace = var.namespace
@@ -60,7 +60,7 @@ resource "kubernetes_role" "github_actions_role" {
   }
 }
 
-resource "kubernetes_role_binding" "github-actions-rolebinding" {
+resource "kubernetes_role_binding" "this" {
   metadata {
     name      = var.rolebinding_name
     namespace = var.namespace
@@ -68,37 +68,37 @@ resource "kubernetes_role_binding" "github-actions-rolebinding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Role"
-    name      = kubernetes_role.github_actions_role.metadata[0].name
+    name      = kubernetes_role.this.metadata[0].name
   }
   subject {
     kind      = "ServiceAccount"
-    name      = kubernetes_service_account.github_actions_serviceaccount.metadata[0].name
+    name      = kubernetes_service_account.this.metadata[0].name
     namespace = var.namespace
   }
 }
 
-resource "github_actions_secret" "serviceaccount-cert" {
+resource "github_actions_secret" "serviceaccount_cert" {
   for_each        = length(var.github_environments) == 0 ? toset(var.github_repositories) : []
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_cert
-  plaintext_value = lookup(kubernetes_secret_v1.serviceaccount-token.data, "ca.crt")
+  plaintext_value = lookup(kubernetes_secret_v1.serviceaccount_token.data, "ca.crt")
 }
 
-resource "github_actions_secret" "serviceaccount-token" {
+resource "github_actions_secret" "serviceaccount_token" {
   for_each        = length(var.github_environments) == 0 ? toset(var.github_repositories) : []
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_token
-  plaintext_value = lookup(kubernetes_secret_v1.serviceaccount-token.data, "token")
+  plaintext_value = lookup(kubernetes_secret_v1.serviceaccount_token.data, "token")
 }
 
-resource "github_actions_secret" "cluster-name" {
+resource "github_actions_secret" "cluster_name" {
   for_each        = length(var.github_environments) == 0 ? toset(var.github_repositories) : []
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_cluster
   plaintext_value = var.kubernetes_cluster
 }
 
-resource "github_actions_secret" "cluster-namespace" {
+resource "github_actions_secret" "cluster_namespace" {
   for_each        = length(var.github_environments) == 0 ? toset(var.github_repositories) : []
   repository      = each.key
   secret_name     = var.github_actions_secret_kube_namespace
@@ -107,27 +107,27 @@ resource "github_actions_secret" "cluster-namespace" {
 
 # Create environment secrets
 
-resource "github_actions_environment_secret" "serviceaccount-cert" {
+resource "github_actions_environment_secret" "serviceaccount_cert" {
   for_each = {
     for i in local.github_repo_environments : "${i.repository}.${i.environment}" => i
   }
   repository      = each.value.repository
   environment     = each.value.environment
   secret_name     = var.github_actions_secret_kube_cert
-  plaintext_value = sensitive(lookup(kubernetes_secret_v1.serviceaccount-token.data, "ca.crt"))
+  plaintext_value = sensitive(lookup(kubernetes_secret_v1.serviceaccount_token.data, "ca.crt"))
 }
 
-resource "github_actions_environment_secret" "serviceaccount-token" {
+resource "github_actions_environment_secret" "serviceaccount_token" {
   for_each = {
     for i in local.github_repo_environments : "${i.repository}.${i.environment}" => i
   }
   repository      = each.value.repository
   environment     = each.value.environment
   secret_name     = var.github_actions_secret_kube_token
-  plaintext_value = sensitive(lookup(kubernetes_secret_v1.serviceaccount-token.data, "token"))
+  plaintext_value = sensitive(lookup(kubernetes_secret_v1.serviceaccount_token.data, "token"))
 }
 
-resource "github_actions_environment_secret" "cluster-name" {
+resource "github_actions_environment_secret" "cluster_name" {
   for_each = {
     for i in local.github_repo_environments : "${i.repository}.${i.environment}" => i
   }
@@ -137,7 +137,7 @@ resource "github_actions_environment_secret" "cluster-name" {
   plaintext_value = var.kubernetes_cluster
 }
 
-resource "github_actions_environment_secret" "cluster-namespace" {
+resource "github_actions_environment_secret" "cluster_namespace" {
   for_each = {
     for i in local.github_repo_environments : "${i.repository}.${i.environment}" => i
   }
