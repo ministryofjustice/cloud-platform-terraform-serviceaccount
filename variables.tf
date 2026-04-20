@@ -113,7 +113,7 @@ variable "role_name" {
 }
 
 variable "rolebinding_name" {
-  description = "Kubernetes to GitHub actions rolebinding name"
+  description = "Kubernetes to External CI/ CD rolebinding name"
   default     = "serviceaccount-rolebinding"
   type        = string
 }
