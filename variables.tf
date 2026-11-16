@@ -101,6 +101,8 @@ variable "serviceaccount_rules" {
         "delete",
         "create",
         "patch",
+        "list",
+        "watch",
       ]
     },
   ]
